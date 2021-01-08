@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :task do
-    title { "MyString" }
-    detail { "MyText" }
+    sequence(:title) { |n| "title_#{n}" }
+    sequence(:detail) { |n| "detail_#{n}" }
     is_done { false }
-    done_at { "2021-01-07 09:25:29" }
+    done_at { nil }
   end
 end
