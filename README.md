@@ -1,7 +1,5 @@
 ## #1 prepare database
 
 ```
-cd api
-docker-compose run web rails db:create
-docker-compose run web rails db:migrate
+docker-compose run api rails db:migrate:reset db:seed
 ```
