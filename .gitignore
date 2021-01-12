@@ -24,6 +24,11 @@
 # Ignore schema
 /api/db/schema.rb
 
+##db
+# Ignore db/data, but keep the directory
+/db/data/*
+!db/data/.keep
+
 ## front
 # dependencies
 /front/app/node_modules

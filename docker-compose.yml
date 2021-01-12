@@ -13,7 +13,7 @@ services:
   db: 
     image: postgres
     volumes: 
-      - ./api/tmp/db:/var/lib/postgresql/data
+      - ./db/data:/var/lib/postgresql/data
     environment: 
       POSTGRES_PASSWORD: password
   app: 
