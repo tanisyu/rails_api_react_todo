@@ -1,8 +1,8 @@
 version: "3"
-services:
-  api:
+services: 
+  api: 
     build: ./api
-    ports:
+    ports: 
       - '3000:3000'
     volumes: 
       - './api:/usr/src/app'
@@ -10,20 +10,19 @@ services:
     # db作成後にコンテナ作成
     depends_on: 
       - db
-  db:
+  db: 
     image: postgres
-    volumes:
-      - ./api/tmp/db:/var/lib/postgresql/data
-    environment:
+    volumes: 
+      - ./db/data:/var/lib/postgresql/data
+    environment: 
       POSTGRES_PASSWORD: password
-  app:
-    build:
-      context: ./front
-    volumes:
+  app: 
+    build: ./front
+    volumes: 
       - ./front/app:/usr/src/app
-    ports:
+    ports: 
       - "8080:3000"
     command: "yarn start"
     stdin_open: true
-    environment:
+    environment: 
       - CHOKIDAR_USEPOLLING=true
