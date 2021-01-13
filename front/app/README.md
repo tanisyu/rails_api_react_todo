@@ -2,9 +2,9 @@
 - redux
 - react-redux
 - axios
+- redux-thunk
 
 # Under packages will be added later
-- redux-thunk
 - react-router-dom
 - redux-form
 - redux-devtools-extension
