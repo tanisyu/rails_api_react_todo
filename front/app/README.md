@@ -1,3 +1,14 @@
+# yarn added under the packages
+- redux
+- react-redux
+- axios
+- redux-thunk
+
+# Under packages will be added later
+- react-router-dom
+- redux-form
+- redux-devtools-extension
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
