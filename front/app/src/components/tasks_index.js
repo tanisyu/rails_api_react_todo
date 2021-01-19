@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
 import { readTasks } from '../actions'
+import { Link } from 'react-router-dom'
 
 class TasksIndex extends Component {
   componentDidMount() {
@@ -46,6 +47,8 @@ class TasksIndex extends Component {
 
           {this.renderTasks()}
         </table>
+
+        <Link to="/tasks/new">New Event</Link>
       </React.Fragment>
     )
   }
