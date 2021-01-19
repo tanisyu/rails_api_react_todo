@@ -6,8 +6,10 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import thunk from 'redux-thunk'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import TasksIndex from './components/tasks_index';
+import TasksNew from './components/tasks_new';
 
 const enhancer = applyMiddleware(thunk)
 const store = createStore(reducer, enhancer)
@@ -15,7 +17,13 @@ const store = createStore(reducer, enhancer)
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <TasksIndex />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={TasksIndex} />
+          <Route exact path="/tasks" component={TasksIndex} />
+          <Route path="/tasks/new" component={TasksNew} />
+        </Switch>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
