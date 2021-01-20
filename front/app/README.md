@@ -5,8 +5,6 @@
 - redux-thunk
 - react-router-dom
 - redux-form
-
-# Under packages will be added later
 - redux-devtools-extension
 
 # Getting Started with Create React App

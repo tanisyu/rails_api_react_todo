@@ -7,11 +7,14 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import thunk from 'redux-thunk'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { composeWithDevTools } from "redux-devtools-extension";
 
-import TasksIndex from './components/tasks_index';
-import TasksNew from './components/tasks_new';
+import TasksIndex from './components/tasks_index'
+import TasksNew from './components/tasks_new'
+import TasksShow from './components/tasks_show'
 
-const enhancer = applyMiddleware(thunk)
+const enhancer = process.env.NODE_ENV === 'development' ?
+  composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
@@ -22,6 +25,7 @@ ReactDOM.render(
           <Route exact path="/" component={TasksIndex} />
           <Route exact path="/tasks" component={TasksIndex} />
           <Route path="/tasks/new" component={TasksNew} />
+          <Route exact path="/tasks/:id" component={TasksShow} />
         </Switch>
       </BrowserRouter>
     </Provider>

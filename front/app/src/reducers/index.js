@@ -3,4 +3,4 @@ import { reducer as form } from 'redux-form'
 
 import tasks from './task'
 
-export default combineReducers({ tasks, form })
+export default combineReducers({ tasks: tasks, form })

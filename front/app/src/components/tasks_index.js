@@ -20,7 +20,11 @@ class TasksIndex extends Component {
           return (
             <tr key={task.id}>
               <td>{task.id}</td>
-              <td>{task.title}</td>
+              <td>
+                <Link to={`/tasks/${task.id}`}>
+                  {task.title}
+                </Link>
+              </td>
               <td>{task.detail}</td>
               <td>{task.is_done}</td>
               <td>{task.done_at}</td>
