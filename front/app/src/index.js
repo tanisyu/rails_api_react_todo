@@ -12,6 +12,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import TasksIndex from './components/tasks_index'
 import TasksNew from './components/tasks_new'
 import TasksShow from './components/tasks_show'
+import TasksEdit from './components/tasks_edit'
 
 const enhancer = process.env.NODE_ENV === 'development' ?
   composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
@@ -26,6 +27,7 @@ ReactDOM.render(
           <Route exact path="/tasks" component={TasksIndex} />
           <Route path="/tasks/new" component={TasksNew} />
           <Route exact path="/tasks/:id" component={TasksShow} />
+          <Route exact path="/tasks/:id/edit" component={TasksEdit} />
         </Switch>
       </BrowserRouter>
     </Provider>
