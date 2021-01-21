@@ -2,6 +2,7 @@ import {
   READ_TASKS,
   GET_TASK,
   CREATE_TASK,
+  UPDATE_TASK,
 } from '../actions'
 
 const switchTasks = (tasks = {}, action) => {
@@ -10,6 +11,7 @@ const switchTasks = (tasks = {}, action) => {
       return action.response.data
     case CREATE_TASK:
     case GET_TASK:
+    case UPDATE_TASK:
       const data = action.response.data.data
       return { ...tasks, [data.id]: data }
     default:
