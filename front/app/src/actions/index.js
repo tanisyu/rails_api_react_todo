@@ -4,6 +4,7 @@ export const READ_TASKS = 'READ_TASKS'
 export const GET_TASK = 'GET_TASK'
 export const CREATE_TASK = 'CREATE_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
+export const DELETE_TASK = 'DELETE_TASK'
 
 const ROOT_URL = 'http://127.0.0.1:3000/api/v1'
 
@@ -32,4 +33,9 @@ export const putTask = values => async dispatch => {
 
   const response = await axios.put(`${ROOT_URL}/tasks/${values.id}`, updatable_task)
   dispatch({ type: UPDATE_TASK, response })
+}
+
+export const deleteTask = id => async dispatch => {
+  await axios.delete(`${ROOT_URL}/tasks/${id}`)
+  dispatch({ type: DELETE_TASK, id })
 }
