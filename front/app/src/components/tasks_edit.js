@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
-import { getTask, putTask } from '../actions'
+import { getTask, putTask, deleteTask } from '../actions'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 
@@ -9,6 +9,7 @@ class TasksEdit extends Component {
   constructor(props) {
     super(props)
     this.onSubmit = this.onSubmit.bind(this)
+    this.onDeleteClick = this.onDeleteClick.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +29,12 @@ class TasksEdit extends Component {
 
   async onSubmit(values) {
     await this.props.putTask(values)
+    this.props.history.push('/')
+  }
+
+  async onDeleteClick() {
+    const { id } = this.props.match.params
+    await this.props.deleteTask(id)
     this.props.history.push('/')
   }
 
@@ -70,6 +77,7 @@ class TasksEdit extends Component {
 
           <div>
             <Link to={`/tasks/${this.props.match.params.id}`}>Back</Link>
+            <Link to="/" onClick={this.onDeleteClick}>Delete</Link>
             <input type="submit" value="Submit" />
           </div>
         </form>
@@ -83,7 +91,7 @@ const mapStateToProps = (state, ownProps) => {
   return { initialValues: task, state }
 }
 
-const mapDispatchToProps = ({ getTask, putTask })
+const mapDispatchToProps = ({ getTask, putTask, deleteTask })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({ form: 'taskEditForm', enableReinitialize: true})
