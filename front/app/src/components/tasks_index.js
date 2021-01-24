@@ -50,7 +50,9 @@ class TasksIndex extends Component {
     const style = {
       position: "fixed",
       right: 12,
-      bottom: 12
+      bottom: 12,
+      background: "blue",
+      color: "white"
     }
 
     return (
@@ -70,7 +72,7 @@ class TasksIndex extends Component {
         </Table>
 
         <Link to="/tasks/new">
-          <Fab color="primary" style={style} >
+          <Fab style={style} >
             <AddIcon />
           </Fab>
         </Link>

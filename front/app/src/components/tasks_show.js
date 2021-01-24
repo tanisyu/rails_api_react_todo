@@ -4,6 +4,18 @@ import { connect } from 'react-redux'
 import { getTask } from '../actions'
 import { Link } from 'react-router-dom'
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Fab,
+} from '@material-ui/core';
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import EditIcon from '@material-ui/icons/Edit';
+
 class TasksShow extends Component {
   componentDidMount() {
     this.props.getTask(this.props.match.params.id)
@@ -17,36 +29,61 @@ class TasksShow extends Component {
     }
 
     return (
-      <tbody>
-        <tr key={task.id}>
-          <td>{task.id}</td>
-          <td>{task.title}</td>
-          <td>{task.detail}</td>
-          <td>{task.is_done}</td>
-          <td>{task.done_at}</td>
-        </tr> 
-      </tbody>
+      <TableBody>
+        <TableRow key={task.id}>
+          <TableCell>{task.id}</TableCell>
+          <TableCell>{task.title}</TableCell>
+          <TableCell>{task.detail}</TableCell>
+          <TableCell>{task.is_done}</TableCell>
+          <TableCell>{task.done_at}</TableCell>
+        </TableRow> 
+      </TableBody>
     )
   }
 
   render() {
+    const style = {
+      back: {
+        position: "fixed",
+        left: 12,
+        bottom: 12,
+        background: "indigo",
+        color: "white"
+      },
+      edit: {
+        position: "fixed",
+        right: 12,
+        bottom: 12,
+        background: "green",
+        color: "white"
+      }
+    }
+
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Detail</th>
-              <th>Is_done</th>
-              <th>Done_at</th>
-            </tr>
-          </thead>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Detail</TableCell>
+              <TableCell>Is_done</TableCell>
+              <TableCell>Done_at</TableCell>
+            </TableRow>
+          </TableHead>
           {this.renderTask()}
-        </table>
+        </Table>
 
-        <Link to="/tasks">Back</Link>
-        <Link to={`/tasks/${this.props.match.params.id}/edit`}>Edit</Link>
+        <Link to="/tasks">
+          <Fab style={style.back} >
+            <ArrowBackIcon />
+          </Fab>
+        </Link>
+        <Link to={`/tasks/${this.props.match.params.id}/edit`}>
+          <Fab style={style.edit} >
+            <EditIcon />
+          </Fab>
+        </Link>
       </React.Fragment>
     )
   }
