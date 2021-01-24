@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
+import { TextField, Fab } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SendIcon from '@material-ui/icons/Send';
 
 import { postTask } from '../actions'
 
@@ -17,7 +20,7 @@ class TasksNew extends Component {
 
     return (
       <div>
-        <input {...input} placeholder={label} type={type} />
+        <TextField {...input} placeholder={label} type={type} fullWidth={true} />
         {touched && error && <span>{error}</span>}
       </div>
     )
@@ -31,6 +34,23 @@ class TasksNew extends Component {
   render() {
     const { handleSubmit, pristine, submitting, invalid } = this.props
 
+    const style = {
+      back: {
+        position: "fixed",
+        left: 12,
+        bottom: 12,
+        background: "indigo",
+        color: "white"
+      },
+      create: {
+        position: "fixed",
+        right: 12,
+        bottom: 12,
+        background: "green",
+        color: "white"
+      }
+    }
+
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
@@ -38,8 +58,14 @@ class TasksNew extends Component {
           <Field label="Detail" name="detail" type="text" component={this.renderField} />
 
           <div>
-            <input type="submit" value="Submit" disabled={pristine || submitting || invalid} />
-            <Link to="/" >Cancel</Link>
+            <Link to="/tasks">
+              <Fab style={style.back} >
+                <ArrowBackIcon />
+              </Fab>
+            </Link>
+            <Fab disabled={pristine || submitting || invalid} style={style.create} type="submit">
+              <SendIcon />
+            </Fab>
           </div>
         </div>
       </form>

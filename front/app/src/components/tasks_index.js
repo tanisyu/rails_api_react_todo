@@ -4,6 +4,17 @@ import { connect } from 'react-redux'
 import { readTasks } from '../actions'
 import { Link } from 'react-router-dom'
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Fab,
+} from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
+
 class TasksIndex extends Component {
   componentDidMount() {
     this.props.readTasks()
@@ -14,45 +25,57 @@ class TasksIndex extends Component {
       return null
     }
       
-    return (<tbody>
+    return (<TableBody>
       {
         this.props.tasks.data.map((task) => {
           return (
-            <tr key={task.id}>
-              <td>{task.id}</td>
-              <td>
+            <TableRow key={task.id}>
+              <TableCell>{task.id}</TableCell>
+              <TableCell>
                 <Link to={`/tasks/${task.id}`}>
                   {task.title}
                 </Link>
-              </td>
-              <td>{task.detail}</td>
-              <td>{task.is_done}</td>
-              <td>{task.done_at}</td>
-            </tr>
+              </TableCell>
+              <TableCell>{task.detail}</TableCell>
+              <TableCell>{task.is_done}</TableCell>
+              <TableCell>{task.done_at}</TableCell>
+            </TableRow>
           )
         })
       }
-    </tbody>)
+    </TableBody>)
   }
 
   render() {
+    const style = {
+      position: "fixed",
+      right: 12,
+      bottom: 12,
+      background: "blue",
+      color: "white"
+    }
+
     return (
       <React.Fragment>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Detail</th>
-              <th>Is_done</th>
-              <th>Done_at</th>
-            </tr>
-          </thead>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Detail</TableCell>
+              <TableCell>Is_done</TableCell>
+              <TableCell>Done_at</TableCell>
+            </TableRow>
+          </TableHead>
 
           {this.renderTasks()}
-        </table>
+        </Table>
 
-        <Link to="/tasks/new">New Event</Link>
+        <Link to="/tasks/new">
+          <Fab style={style} >
+            <AddIcon />
+          </Fab>
+        </Link>
       </React.Fragment>
     )
   }
