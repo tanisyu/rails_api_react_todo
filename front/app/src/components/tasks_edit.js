@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
-import { getTask, putTask, deleteTask } from '../actions'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
+import { TextField, Checkbox, Fab } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SendIcon from '@material-ui/icons/Send';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+import { getTask, putTask, deleteTask } from '../actions'
 
 class TasksEdit extends Component {
   constructor(props) {
@@ -19,12 +24,21 @@ class TasksEdit extends Component {
   renderField(field) {
     const { input, label, type, meta: { touched, error } } = field
 
-    return (
-      <div>
-        <input {...input} placeholder={label} type={type} />
-        {touched && error && <span>{error}</span>}
-      </div>
-    )
+    if (type === 'text') {
+      return (
+        <div>
+          <TextField {...input} placeholder={label} type={type} fullWidth={true} />
+          {touched && error && <span>{error}</span>}
+        </div>
+      )
+    } else if (type === 'checkbox') {
+      return (
+        <div>
+          <Checkbox {...input} placeholder={label} type={type} fullWidth={true} />
+          {touched && error && <span>{error}</span>}
+        </div>
+      )
+    }
   }
 
   async onSubmit(values) {
@@ -39,7 +53,7 @@ class TasksEdit extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props
+    const { handleSubmit, pristine, submitting, invalid } = this.props
 
     return (
       <React.Fragment>
@@ -76,13 +90,47 @@ class TasksEdit extends Component {
           </table>
 
           <div>
-            <Link to={`/tasks/${this.props.match.params.id}`}>Back</Link>
-            <Link to="/" onClick={this.onDeleteClick}>Delete</Link>
-            <input type="submit" value="Submit" />
+            <Link to={`/tasks/${this.props.match.params.id}`}>
+              <Fab style={style.back} >
+                <ArrowBackIcon />
+              </Fab>
+            </Link>
+
+            <Fab style={style.delete} onClick={this.onDeleteClick}>
+              <DeleteForeverIcon />
+            </Fab>
+
+            <Fab disabled={pristine || submitting || invalid} style={style.update} type="submit">
+              <SendIcon />
+            </Fab>
           </div>
         </form>
       </React.Fragment>
     )
+  }
+}
+
+const style = {
+  back: {
+    position: "fixed",
+    left: 12,
+    bottom: 12,
+    background: "indigo",
+    color: "white"
+  },
+  update: {
+    position: "fixed",
+    right: 12,
+    bottom: 12,
+    background: "green",
+    color: "white"
+  },
+  delete: {
+    position: "fixed",
+    left: "45%",
+    bottom: 12,
+    background: "red",
+    color: "white"
   }
 }
 
