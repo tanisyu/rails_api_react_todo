@@ -22,7 +22,6 @@ http://localhost:8080/
 ```
 docker-compose up --build -d
 docker-compose exec api rails db:migrate:reset RAILS_ENV=test
-docker-compose exec api rails db:seed
 docker-compose exec api rspec
 ```
 
