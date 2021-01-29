@@ -27,7 +27,6 @@
 ##db
 # Ignore db/data, but keep the directory
 /db/data/*
-!db/data/.keep
 /db/production/*
 
 ## front
