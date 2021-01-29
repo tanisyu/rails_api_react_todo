@@ -3,12 +3,12 @@
 
 - See the README in each directory
 
-## #2 development
+## #2 Development
 
 ```
 docker-compose up --build -d
-docker-compose run api rails db:migrate:reset
-docker-compose run api rails db:seed
+docker-compose exec api rails db:migrate:reset
+docker-compose exec api rails db:seed
 ```
 
 - Check if Accessable with localhost:8080
@@ -17,7 +17,16 @@ docker-compose run api rails db:seed
 http://localhost:8080/
 ```
 
-## #3 Production with nginx in centos8
+## #3 Test
+
+```
+docker-compose up --build -d
+docker-compose exec api rails db:migrate:reset RAILS_ENV=test
+docker-compose exec api rails db:seed
+docker-compose exec api rspec
+```
+
+## #4 Production with nginx in centos8
 
 - Build and attach container with login bash
 

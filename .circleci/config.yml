@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  build:
+    machine: true
+
+    working_directory: ~/app
+
+    steps:
+      - checkout
+
+      - run:
+          name: Start container
+          command: |
+            docker-compose up --build -d
+      - run:
+          name: db接続を待機
+          command: sleep 10
+
+      - run:
+          name: Create and migrate database
+          command: |
+            docker-compose exec api rails db:migrate:reset RAILS_ENV=test
+
+      - run:
+          name: Run rspec
+          command: |
+            docker-compose exec api rspec
