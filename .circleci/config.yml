@@ -12,6 +12,7 @@ jobs:
           name: Start container
           command: |
             docker-compose up --build -d
+
       - run:
           name: db接続を待機
           command: sleep 10
