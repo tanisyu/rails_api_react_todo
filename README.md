@@ -31,21 +31,21 @@ docker-compose exec api rspec
 
 ```
 docker-compose -f docker-compose.yml.prod up --build -d
-docker-compose -f docker-compose.yml.prod exec web bash -l
-```
-
-- Start Nginx
-
-```
-# systemctl start nginx
+docker-compose -f docker-compose.yml.prod exec web bash
 ```
 
 - Create and migration db then start api
 
 ```
-# cd /var/www/api
-# rails db:migrate:reset
-# rails s
+docker-compose -f docker-compose.yml.prod exec web /bin/bash -lc "rails db:create"
+docker-compose -f docker-compose.yml.prod exec web /bin/bash -lc "rails db:migrate"
+docker-compose -f docker-compose.yml.prod exec web /bin/bash -lc "rails s"
+```
+
+- Start Nginx
+
+```
+docker-compose -f docker-compose.yml.prod exec web /bin/bash -lc "systemctl start nginx"
 ```
 
 - Check if Accessable with localhost:8080
