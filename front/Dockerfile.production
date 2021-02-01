@@ -1,0 +1,21 @@
+FROM centos:8
+
+# install packages
+RUN dnf install -y \
+  nodejs \
+  nginx
+RUN npm install --global yarn
+
+# setting react app
+WORKDIR /var/www/front
+COPY ./app .
+RUN yarn install
+
+# setting nginx
+COPY ./nginx/react.conf /etc/nginx/conf.d/
+
+WORKDIR /var/www/front
+
+EXPOSE 80
+CMD ["/usr/sbin/init"]
+
