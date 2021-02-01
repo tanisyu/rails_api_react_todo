@@ -5,7 +5,6 @@ ARG REACT_APP_API_URL="http://localhost"
 ARG REACT_APP_API_PORT="3000"
 ENV REACT_APP_API_URL $REACT_APP_API_URL
 ENV REACT_APP_API_PORT $REACT_APP_API_PORT
-ENV NODE_ENV production
 
 # install packages
 RUN dnf install -y \
@@ -17,6 +16,7 @@ RUN npm install --global yarn
 WORKDIR /var/www/front
 COPY ./app .
 RUN yarn install
+RUN npm run build
 
 # setting nginx
 COPY ./nginx/react.conf /etc/nginx/conf.d/
