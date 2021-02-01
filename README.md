@@ -27,25 +27,24 @@ docker-compose exec api rspec
 
 ## #4 Production with nginx in centos8
 
-- Build and attach container with login bash
+- Build and up containers
 
 ```
-docker-compose -f docker-compose.yml.prod up --build -d
-docker-compose -f docker-compose.yml.prod exec web bash -l
-```
-
-- Start Nginx
-
-```
-# systemctl start nginx
+docker-compose -f docker-compose.yml.production up --build -d
 ```
 
 - Create and migration db then start api
 
 ```
-# cd /var/www/api
-# rails db:migrate:reset
-# rails s
+docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "rails db:create"
+docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "rails db:migrate"
+docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "puma -C config/puma.rb"
+```
+
+- Start Nginx
+
+```
+docker-compose -f docker-compose.yml.production exec app /bin/bash -lc "systemctl start nginx"
 ```
 
 - Check if Accessable with localhost:8080

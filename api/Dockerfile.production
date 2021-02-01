@@ -1,6 +1,6 @@
 FROM centos:8
 
-# install packages exclude libyaml-devel,
+# install packages
 RUN dnf install -y \
   git \
   gcc \
@@ -15,7 +15,6 @@ RUN dnf install -y \
   postgresql-devel \
   nodejs \
   nginx
-RUN npm install --global yarn
 
 # install rbenv, ruby
 RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv 
@@ -29,18 +28,13 @@ RUN rbenv global 2.7.1
 
 # setting rails api
 WORKDIR /var/www/api
-COPY api .
+COPY . .
 RUN bundle install
 
-# setting react app
-WORKDIR /var/www/front
-COPY ./front/app .
-RUN yarn install
-
 # setting nginx
-COPY ./nginx/myapp.conf /etc/nginx/conf.d/
+COPY ./nginx/rails.conf /etc/nginx/conf.d/
 
-WORKDIR /var/www
+WORKDIR /var/www/api
 
-EXPOSE 80
+EXPOSE 3000
 CMD ["/usr/sbin/init"]
