@@ -1,28 +1,53 @@
 version: 2.1
 jobs:
-  build:
+  test:
     machine: true
-
     working_directory: ~/app
-
     steps:
       - checkout
-
       - run:
           name: Start container
           command: |
             docker-compose up --build -d
-
       - run:
           name: wait for connection db
           command: sleep 10
-
       - run:
           name: Create and migrate database
           command: |
             docker-compose exec api rails db:migrate:reset RAILS_ENV=test
-
       - run:
           name: Run rspec
           command: |
             docker-compose exec api rspec
+  deploy:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Build api container
+          command: |
+            docker build -f api/Dockerfile.production -t my_api --build-arg APP_DATABASE_USERNAME=$APP_DATABASE_USERNAME --build-arg APP_DATABASE_PASSWORD=$APP_DATABASE_PASSWORD --build-arg APP_DATABASE_HOST=$APP_DATABASE_HOST api
+      - run:
+          name: Login heroku registry
+          command: |
+            docker login --username=$MAIL --password=$HEROKU_KEY registry.heroku.com
+      - run:
+          name: tag image
+          command: |
+            docker tag my_api registry.heroku.com/rails-api-tanisyu/api
+      - run:
+          name: Push to heroku registry
+          command: |
+            docker push registry.heroku.com/rails-api-tanisyu/api
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - test
+      - deploy:
+          filters:
+            branches:
+              only: master

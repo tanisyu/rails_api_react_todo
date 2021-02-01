@@ -38,13 +38,6 @@ docker-compose -f docker-compose.yml.production up --build -d
 ```
 docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "rails db:create"
 docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "rails db:migrate"
-docker-compose -f docker-compose.yml.production exec api /bin/bash -lc "puma -C config/puma.rb"
-```
-
-- Start Nginx
-
-```
-docker-compose -f docker-compose.yml.production exec app /bin/bash -lc "systemctl start nginx"
 ```
 
 - Check if Accessable with localhost:8080

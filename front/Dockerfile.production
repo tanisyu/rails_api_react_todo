@@ -1,5 +1,11 @@
 FROM centos:8
 
+# env and args
+ARG REACT_APP_API_URL="http://localhost"
+ARG REACT_APP_API_PORT="3000"
+ENV REACT_APP_API_URL $REACT_APP_API_URL
+ENV REACT_APP_API_PORT $REACT_APP_API_PORT
+
 # install packages
 RUN dnf install -y \
   nodejs \
@@ -10,6 +16,7 @@ RUN npm install --global yarn
 WORKDIR /var/www/front
 COPY ./app .
 RUN yarn install
+RUN npm run build
 
 # setting nginx
 COPY ./nginx/react.conf /etc/nginx/conf.d/
@@ -17,5 +24,4 @@ COPY ./nginx/react.conf /etc/nginx/conf.d/
 WORKDIR /var/www/front
 
 EXPOSE 80
-CMD ["/usr/sbin/init"]
-
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

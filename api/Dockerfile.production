@@ -1,5 +1,14 @@
 FROM centos:8
 
+# env and args
+ARG APP_DATABASE_HOST=db
+ARG APP_DATABASE_USERNAME=postgres
+ARG APP_DATABASE_PASSWORD=password
+ENV APP_DATABASE_HOST $APP_DATABASE_HOST
+ENV APP_DATABASE_USERNAME $APP_DATABASE_USERNAME
+ENV APP_DATABASE_PASSWORD $APP_DATABASE_PASSWORD
+ENV RAILS_ENV production
+
 # install packages
 RUN dnf install -y \
   git \
@@ -37,4 +46,4 @@ COPY ./nginx/rails.conf /etc/nginx/conf.d/
 WORKDIR /var/www/api
 
 EXPOSE 3000
-CMD ["/usr/sbin/init"]
+CMD pumactl start
