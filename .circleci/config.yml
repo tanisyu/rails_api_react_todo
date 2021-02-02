@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Login heroku registry
           command: |
-            docker login --username=$MAIL --password=$HEROKU_KEY registry.heroku.com
+            docker login --username=$USER --password=$HEROKU_KEY registry.heroku.com
       - run:
           name: tag image
           command: |
