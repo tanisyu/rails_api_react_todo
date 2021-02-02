@@ -36,11 +36,11 @@ jobs:
       - run:
           name: tag image
           command: |
-            docker tag my_api registry.heroku.com/rails-api-tanisyu/api
+            docker tag my_api registry.heroku.com/rails-api-tanisyu/web
       - run:
           name: Push to heroku registry
           command: |
-            docker push registry.heroku.com/rails-api-tanisyu/api
+            docker push registry.heroku.com/rails-api-tanisyu/web
 
 workflows:
   version: 2
