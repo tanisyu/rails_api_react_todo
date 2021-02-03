@@ -72,8 +72,7 @@ $APP_URL                React App URL for CORS setting
 $RAILS_MASTER_KEY       config/master.key
 
 ・For React APP
-$REACT_APP_API_URL      API URL
-$REACT_APP_API_PORT     API port if necessary
+$REACT_APP_API_URL      API URL and port
 
 ・For deploy to heroku
 $HEROKU_KEY             Heroku API Key

@@ -2,10 +2,8 @@ FROM node:14-alpine as build
 WORKDIR /var/www/front
 
 # env and args
-ARG REACT_APP_API_URL="http://localhost"
-ARG REACT_APP_API_PORT="3000"
+ARG REACT_APP_API_URL="http://localhost:3000"
 ENV REACT_APP_API_URL $REACT_APP_API_URL
-ENV REACT_APP_API_PORT $REACT_APP_API_PORT
 
 # add bash
 RUN apk add bash

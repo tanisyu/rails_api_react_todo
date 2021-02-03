@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Build app container
           command: |
-            docker build -f front/Dockerfile.heroku -t my_app --build-arg REACT_APP_API_URL=$REACT_APP_API_URL --build-arg REACT_APP_API_PORT=$REACT_APP_API_PORT front
+            docker build -f front/Dockerfile.heroku -t my_app --build-arg REACT_APP_API_URL=$REACT_APP_API_URL front
       - run:
           name: Login heroku registry
           command: |
