@@ -48,11 +48,11 @@ jobs:
       - run:
           name: tag app image
           command: |
-            docker tag my_app registry.heroku.com/react-tanisyu/app
+            docker tag my_app registry.heroku.com/react-tanisyu/web
       - run:
           name: Push to app heroku registry
           command: |
-            docker push registry.heroku.com/react-tanisyu/app
+            docker push registry.heroku.com/react-tanisyu/web
 
 workflows:
   version: 2

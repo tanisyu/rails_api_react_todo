@@ -84,5 +84,5 @@ $USER                   Heroku user name (not Email)
 
 ```
 heroku container:release -a rails-api-tanisyu web
-heroku container:release -a react-tanisyu app
+heroku container:release -a react-tanisyu web
 ```
