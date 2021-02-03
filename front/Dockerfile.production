@@ -1,10 +1,8 @@
 FROM centos:8
 
 # env and args
-ARG REACT_APP_API_URL="http://localhost"
-ARG REACT_APP_API_PORT="3000"
+ARG REACT_APP_API_URL="http://localhost:3000"
 ENV REACT_APP_API_URL $REACT_APP_API_URL
-ENV REACT_APP_API_PORT $REACT_APP_API_PORT
 
 # install packages
 RUN dnf install -y \

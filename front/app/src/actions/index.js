@@ -6,7 +6,7 @@ export const CREATE_TASK = 'CREATE_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 
-const ROOT_URL = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/v1`
+const ROOT_URL = `${process.env.REACT_APP_API_URL}/api/v1`
 
 export const readTasks = () => async dispatch => {
   const response = await axios.get(`${ROOT_URL}/tasks`)
