@@ -1,0 +1,25 @@
+FROM ruby:2.7.1
+
+# env and args
+ARG APP_DATABASE_NAME=app_production
+ARG APP_DATABASE_HOST=db
+ARG APP_DATABASE_USERNAME=postgres
+ARG APP_DATABASE_PASSWORD=password
+ARG APP_URL
+ENV APP_DATABASE_NAME $APP_DATABASE_NAME
+ENV APP_DATABASE_HOST $APP_DATABASE_HOST
+ENV APP_DATABASE_USERNAME $APP_DATABASE_USERNAME
+ENV APP_DATABASE_PASSWORD $APP_DATABASE_PASSWORD
+ENV APP_URL $APP_URL
+ENV RAILS_ENV production
+
+RUN apt-get update && apt-get install -y nodejs postgresql-client
+
+WORKDIR /var/www/api
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+COPY . ./
+
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]

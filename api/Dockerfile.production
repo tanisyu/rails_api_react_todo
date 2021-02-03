@@ -29,18 +29,20 @@ RUN dnf install -y \
 
 # install rbenv, ruby
 RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv 
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
-RUN echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+RUN echo 'eval "$(rbenv init -)"' >> ~/.bash_profile && echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-SHELL ["/bin/bash", "-l", "-c"] 
+SHELL ["/bin/bash", "-l", "-c"]
 RUN rbenv install 2.7.1
 RUN rbenv rehash
 RUN rbenv global 2.7.1
 
 # setting rails api
 WORKDIR /var/www/api
-COPY . .
+COPY Gemfile .
+COPY Gemfile.lock .
 RUN bundle install
+COPY . .
 
 # setting nginx
 COPY ./nginx/rails.conf /etc/nginx/conf.d/
@@ -49,4 +51,4 @@ WORKDIR /var/www/api
 
 EXPOSE 3000
 
-# CMD pumactl start
+CMD pumactl start

@@ -28,19 +28,31 @@ jobs:
       - run:
           name: Build api container
           command: |
-            docker build -f api/Dockerfile.production -t my_api --build-arg APP_DATABASE_USERNAME=$APP_DATABASE_USERNAME --build-arg APP_DATABASE_PASSWORD=$APP_DATABASE_PASSWORD --build-arg APP_DATABASE_HOST=$APP_DATABASE_HOST api
+            docker build -f api/Dockerfile.heroku -t my_api --build-arg APP_DATABASE_USERNAME=$APP_DATABASE_USERNAME --build-arg APP_DATABASE_PASSWORD=$APP_DATABASE_PASSWORD --build-arg APP_DATABASE_HOST=$APP_DATABASE_HOST --build-arg APP_URL=$APP_URL api
+      - run:
+          name: Build app container
+          command: |
+            docker build -f front/Dockerfile.heroku -t my_app --build-arg REACT_APP_API_URL=$REACT_APP_API_URL --build-arg REACT_APP_API_PORT=$REACT_APP_API_PORT front
       - run:
           name: Login heroku registry
           command: |
             docker login --username=$USER --password=$HEROKU_KEY registry.heroku.com
       - run:
-          name: tag image
+          name: tag api image
           command: |
             docker tag my_api registry.heroku.com/rails-api-tanisyu/web
       - run:
-          name: Push to heroku registry
+          name: Push to api heroku registry
           command: |
             docker push registry.heroku.com/rails-api-tanisyu/web
+      - run:
+          name: tag app image
+          command: |
+            docker tag my_api registry.heroku.com/react-tanisyu/app
+      - run:
+          name: Push to app heroku registry
+          command: |
+            docker push registry.heroku.com/react-tanisyu/app
 
 workflows:
   version: 2

@@ -1,0 +1,21 @@
+FROM node:14-alpine  
+
+# env and args
+ARG REACT_APP_API_URL="http://localhost"
+ARG REACT_APP_API_PORT="3000"
+ENV REACT_APP_API_URL $REACT_APP_API_URL
+ENV REACT_APP_API_PORT $REACT_APP_API_PORT
+
+WORKDIR /var/www/front
+
+RUN apk add bash
+RUN npm install -g serve
+
+COPY app/package.json .
+COPY app/yarn.lock .
+RUN yarn install
+
+COPY ./app .
+RUN npm run build
+
+CMD serve -s build -l $PORT
