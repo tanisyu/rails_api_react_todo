@@ -69,6 +69,7 @@ $APP_DATABASE_NAME      DB name
 $APP_DATABASE_PASSWORD  DB password
 $APP_DATABASE_USERNAME  DB username
 $APP_URL                React App URL for CORS setting
+$MASTER_KEY             config/master.key
 
 ・For React APP
 $REACT_APP_API_URL      API URL
